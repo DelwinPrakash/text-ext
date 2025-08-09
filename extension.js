@@ -23,8 +23,6 @@ import GLib from 'gi://GLib';
 
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
-import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
-
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const Indicator = GObject.registerClass(
@@ -40,18 +38,12 @@ class Indicator extends PanelMenu.Button {
 
         this.add_child(this._label);
 
-        this._phrases = ["hello world", "gm gm", "how are you?", "you alright?", "code code code", "shipping soon", "vibe coding", "rebooting", "dev mode on", "still loading...", "touch grass", "error 404: sleep", "live laugh loop", "ERROR:404", "ping me later", "commit and push", "sudo relax", "DELWIN", "drink water", "caffeine++", "tab >>> spaces", "no bugs today", "typing...", "building things", "one more deploy", "trust the process", "it's fine :)", "ctrl + z", "late night coding", "weekend? never heard of it", "running on coffee", "think twice, code once", "Clt C + Clt V", "git commit -m 'it works'", "just one more line", "syntax error", "refactor later", "let's ship it", "code is poetry", "it works on my machine"];
+        this._phrases = ["hello world", "gm gm", "how are you?", "you alright?", "code code code", "shipping soon", "vibe coding", "build build build", "rebooting", "dev mode on", "still loading...", "touch grass", "error 404: sleep", "ERROR:404", "ping me later", "commit and push", "sudo relax", "DELWIN", "drink water", "caffeine++", "tab >>> spaces", "no bugs today", "typing...", "one more deploy", "trust the process", "it's fine :)", "ctrl + z", "late night coding", "weekend? never heard of it", "running on coffee", "I'm fine :/", "Clrt C + Clrt V", "git commit -m 'shit, it works'", "just one more line", "syntax error", "refactor later", "love you <3", "ship it", "code is poetry", "it works on my machine", "brain not braining", "wifi down", "console.log('hello world')", "rm -rf /", "AI did it", "kernel panic", "git push --force", "trash code", "I copied your code", "that's not my code"];
 
-        this._timeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 15, () => {
+        this._timeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 30, () => {
             this._animateTextChange();
             return GLib.SOURCE_CONTINUE;
         });
-
-        let item = new PopupMenu.PopupMenuItem(_('Show Notification'));
-        item.connect('activate', () => {
-            Main.notify(_('Aaah oomb'));
-        });
-        this.menu.addMenuItem(item);
     }
     
     _animateTextChange(){
