@@ -19,6 +19,7 @@
 import GObject from 'gi://GObject';
 import St from 'gi://St';
 import Clutter from 'gi://Clutter';
+import GLib from 'gi://GLib';
 
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
@@ -31,10 +32,20 @@ class Indicator extends PanelMenu.Button {
     _init() {
         super._init(0.0, _('display top text'));
 
-        this.add_child(new St.Label({
+        this._label = new St.Label({
             text: "DELWIN",
             y_align: Clutter.ActorAlign.CENTER,
-        }));
+            opacity: 255
+        });
+
+        this.add_child(this._label);
+
+        this._phrases = ["hello world", "gm gm", "how are you?", "you alright?", "code code code", "shipping soon", "vibe coding", "rebooting", "dev mode on", "still loading...", "touch grass", "error 404: sleep", "live laugh loop", "ERROR:404", "ping me later", "commit and push", "sudo relax", "DELWIN", "drink water", "caffeine++", "tab >>> spaces", "no bugs today", "typing...", "building things", "one more deploy", "trust the process", "it's fine :)", "ctrl + z", "late night coding", "weekend? never heard of it", "running on coffee", "think twice, code once", "Clt C + Clt V", "git commit -m 'it works'", "just one more line", "syntax error", "refactor later", "let's ship it", "code is poetry", "it works on my machine"];
+
+        this._timeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 15, () => {
+            this._animateTextChange();
+            return GLib.SOURCE_CONTINUE;
+        });
 
         let item = new PopupMenu.PopupMenuItem(_('Show Notification'));
         item.connect('activate', () => {
@@ -42,12 +53,38 @@ class Indicator extends PanelMenu.Button {
         });
         this.menu.addMenuItem(item);
     }
+    
+    _animateTextChange(){
+        this._label.ease({
+            opacity: 0,
+            duration: 500,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: () => {
+                let randomIndex = Math.floor(Math.random() * this._phrases.length);
+                this._label.set_text(this._phrases[randomIndex]);
+
+                this._label.ease({
+                    opacity: 255,
+                    duration: 500,
+                    mode: Clutter.AnimationMode.EASE_IN_QUAD
+                });
+            }
+        });
+    }
+
+    destroy(){
+        if(this._timeoutId){
+            GLib.Source.remove(this._timeoutId);
+            this._timeoutId = null;
+        }
+        super.destroy();
+    }
 });
 
 export default class IndicatorExampleExtension extends Extension {
     enable() {
         this._indicator = new Indicator();
-        Main.panel.addToStatusArea(this.uuid, this._indicator, 1, 'left');
+        Main.panel.addToStatusArea(this.uuid, this._indicator, 2, 'left');
     }
 
     disable() {
