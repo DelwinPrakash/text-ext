@@ -1,0 +1,8 @@
+{
+  "name": "Display Top Text",
+  "description": "Display text on the top panel",
+  "uuid": "displaytoptext@delwin.dev",
+  "shell-version": [
+    "48"
+  ]
+}
