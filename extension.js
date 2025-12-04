@@ -38,9 +38,9 @@ class Indicator extends PanelMenu.Button {
 
         this.add_child(this._label);
 
-        this._phrases = ["hello world", "gm gm", "how are you?", "you alright?", "code code code", "shipping soon", "vibe coding", "build build build", "rebooting", "dev mode on", "still loading...", "touch grass", "error 404: sleep", "ERROR:404", "ping me later", "commit and push", "sudo relax", "DELWIN", "drink water", "caffeine++", "tab >>> spaces", "no bugs today", "typing...", "one more deploy", "trust the process", "it's fine :)", "ctrl + z", "late night coding", "weekend? never heard of it", "running on coffee", "I'm fine :/", "Clrt C + Clrt V", "git commit -m 'shit, it works'", "just one more line", "syntax error", "refactor later", "love you <3", "ship it", "code is poetry", "it works on my machine", "brain not braining", "wifi down", "console.log('hello world')", "rm -rf /", "AI did it", "kernel panic", "git push --force", "trash code", "I copied your code", "that's not my code"];
+        this._phrases = ["hello world", "gm gm", "how are you?", "you alright?", "code code code", "shipping soon", "vibe coding", "buidl buidl buidl", "rebooting", "dev mode on", "still loading...", "loading", "touch grass", "error 404: sleep", "ERROR:404", "ping me later", "commit and push", "sudo relax", "DELWIN", "drink water", "caffeine++", "tab >>> spaces", "no bugs today", "typing...", "one more deploy", "trust the process", "it's fine :)", "ctrl + z", "late night coding", "weekend? never heard of it", "running on coffee", "I'm fine :/", "ctrl c + ctrl v", "git commit -m 'shit, it works'", "just one more line", "syntax error", "refactor later", "love you <3", "ship it", "code is poetry", "it works on my machine", "brain not braining", "wifi down", "console.log('hello world')", "rm -rf /", "AI did it", "kernel panicked", "git push --force", "trash code", "i copied your code", "that's not my code"];
 
-        this._timeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 30, () => {
+        this._timeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
             this._animateTextChange();
             return GLib.SOURCE_CONTINUE;
         });

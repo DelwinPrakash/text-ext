@@ -4,7 +4,8 @@
   "description": "Display text on the top panel",
   "uuid": "displaytoptext@delwin.dev",
   "shell-version": [
-    "48"
+    "48",
+    "49"
   ],
   "url": "https://delwin.vercel.app"
 }
